@@ -27,7 +27,7 @@ function WinnerSelection(boxes) {
 
   for (let i = 0; i < boxLines.length; i++) {
     const [a, b, c] = boxLines[i]
-    if (boxes[a] && boxes[b] === boxes[b] && boxes[a] === boxes[c]) {
+    if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
       return boxes[a]
     }
   }
@@ -47,6 +47,9 @@ class BoxContainer extends React.Component {
 
   handleClick(i) {
     const boxes = this.state.boxes.slice()
+    if(WinnerSelection(boxes) || boxes[i]) {
+      return
+    }
     boxes[i] = this.state.xIsNext ? 'X' : 'O'
     this.setState({
       boxes: boxes,
@@ -62,7 +65,14 @@ class BoxContainer extends React.Component {
   }
 
   render() {
-    const status = "Next Player is: " + (this.state.xIsNext ? 'X' : 'O')
+    const winner = WinnerSelection(this.state.boxes)
+    let status
+
+    if (winner) {
+      status = 'Winner ' + winner
+    } else {
+      status = 'Next Player ' + (this.state.xIsNext ? 'X' : 'O')
+    }
 
     return (
       <div className="game-board">
