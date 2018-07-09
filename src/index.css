@@ -17,7 +17,7 @@ ol, ul {
   margin-bottom: 10px;
 }
 
-.square {
+.box {
   background: #fff;
   border: 1px solid #999;
   float: left;
@@ -32,11 +32,11 @@ ol, ul {
   width: 34px;
 }
 
-.square:focus {
+.box:focus {
   outline: none;
 }
 
-.kbd-navigation .square:focus {
+.kbd-navigation .box:focus {
   background: #ddd;
 }
 

@@ -2,10 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-function Square(props) {
+function Box(props) {
   return (
     <button
-      className="square"
+      className="box"
       onClick={props.onClick}
     >
       {props.value}
@@ -13,28 +13,28 @@ function Square(props) {
   )
 }
 
-class Board extends React.Component {
+class BoxContainer extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      squares: Array(9).fill(null),
+      boxes: Array(9).fill(null),
       xIsNext: true,
     }
   }
 
   handleClick(i) {
-    const squares = this.state.squares.slice()
-    squares[i] = this.state.xIsNext ? 'X' : 'O'
+    const boxes = this.state.boxes.slice()
+    boxes[i] = this.state.xIsNext ? 'X' : 'O'
     this.setState({
-      squares: squares,
+      boxes: boxes,
       xIsNext: !this.state.xIsNext,
     })
   }
 
-  renderSquare(i) {
-    return <Square
-            value={this.state.squares[i]}
+  renderBox(i) {
+    return <Box
+            value={this.state.boxes[i]}
             onClick={() => this.handleClick(i)}
            />
   }
@@ -47,32 +47,32 @@ class Board extends React.Component {
         <div className="status">{status}</div>
 
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {this.renderBox(0)}
+          {this.renderBox(1)}
+          {this.renderBox(2)}
         </div>
 
         <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
+          {this.renderBox(3)}
+          {this.renderBox(4)}
+          {this.renderBox(5)}
         </div>
 
         <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+          {this.renderBox(6)}
+          {this.renderBox(7)}
+          {this.renderBox(8)}
         </div>
       </div>
     );
   }
 }
 
-class Game extends React.Component {
+class TicTacToe extends React.Component {
   render() {
     return (
       <div className="game">
-        <Board />
+        <BoxContainer />
 
         <div className="game-info">
           <div>{/* status */}</div>
@@ -84,6 +84,6 @@ class Game extends React.Component {
 }
 
 ReactDOM.render(
-  <Game />,
+  <TicTacToe />,
   document.getElementById('root')
 );
