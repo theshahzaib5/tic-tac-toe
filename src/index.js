@@ -36,48 +36,16 @@ function WinnerSelection(boxes) {
 }
 
 class BoxContainer extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      boxes: Array(9).fill(null),
-      xIsNext: true,
-    }
-  }
-
-  handleClick(i) {
-    const boxes = this.state.boxes.slice()
-    if(WinnerSelection(boxes) || boxes[i]) {
-      return
-    }
-    boxes[i] = this.state.xIsNext ? 'X' : 'O'
-    this.setState({
-      boxes: boxes,
-      xIsNext: !this.state.xIsNext,
-    })
-  }
-
   renderBox(i) {
     return <Box
-            value={this.state.boxes[i]}
-            onClick={() => this.handleClick(i)}
+            value={this.props.boxes[i]}
+            onClick={() => this.props.onClick(i)}
            />
   }
 
   render() {
-    const winner = WinnerSelection(this.state.boxes)
-    let status
-
-    if (winner) {
-      status = 'Winner ' + winner
-    } else {
-      status = 'Next Player ' + (this.state.xIsNext ? 'X' : 'O')
-    }
-
     return (
       <div className="game-board">
-        <div className="status">{status}</div>
-
         <div className="board-row">
           {this.renderBox(0)}
           {this.renderBox(1)}
@@ -101,13 +69,58 @@ class BoxContainer extends React.Component {
 }
 
 class TicTacToe extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      history: [{
+        boxes: Array(9).fill(null),
+      }],
+      xIsNext: true,
+    }
+  }
+
+  handleClick(i) {
+    const history = this.state.history
+    const current = history[history.length - 1]
+    const boxes = current.boxes.slice()
+
+    if(WinnerSelection(boxes) || boxes[i]) {
+      return
+    }
+
+    boxes[i] = this.state.xIsNext ? 'X' : 'O'
+
+    this.setState({
+      history: history.concat([{
+        boxes: boxes,
+      }]),
+      xIsNext: !this.state.xIsNext,
+    })
+  }
+
   render() {
+    const history = this.state.history
+    const current = history[history.length - 1]
+    const winner = WinnerSelection(current.boxes)
+
+    let status
+
+    if (winner) {
+      status = 'Winner ' + winner
+    } else {
+      status = 'Next Player ' + (this.state.xIsNext ? 'X' : 'O')
+    }
+
     return (
       <div className="game">
-        <BoxContainer />
+        <BoxContainer
+          boxes = {current.boxes}
+          onClick = {(i) => this.handleClick(i)}
+        />
 
         <div className="game-info">
-          <div>{/* status */}</div>
+          <div>{status}</div>
           <ol>{/* TODO */}</ol>
         </div>
       </div>
