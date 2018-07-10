@@ -45,6 +45,10 @@ ol, ul {
   flex-direction: row;
 }
 
+.game-board {
+  max-width: 100px; 
+}
+
 .game-info {
   margin-left: 20px;
 }
