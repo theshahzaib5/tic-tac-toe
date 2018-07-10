@@ -5,9 +5,10 @@ import './index.css'
 function Box(props) {
   return (
     <button
-      className="box"
+      className='box'
       onClick={props.onClick}
     >
+      {console.log('props.value', props)}
       {props.value}
     </button>
   )
@@ -28,7 +29,9 @@ function WinnerSelection(boxes) {
   for (let i = 0; i < boxLines.length; i++) {
     const [a, b, c] = boxLines[i]
     if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
-      return boxes[a]
+      return (
+        boxes[a]
+      )
     }
   }
 
@@ -114,7 +117,7 @@ class TicTacToe extends React.Component {
 
       return (
         <li key={move}>
-          <button className={(self.state.boldIt && move == self.state.clickIndex) ? 'bold' : ''} onClick = {() => this.jumpTo(move)}>{desc} </button>
+          <button className={(self.state.boldIt && move === self.state.clickIndex) ? 'bold' : ''} onClick = {() => this.jumpTo(move)}>{desc} </button>
         </li>
       )
     })
@@ -136,10 +139,13 @@ class TicTacToe extends React.Component {
 
         <div className="game-info">
           <div>{status}</div>
+
+          <button type="button">Sort it</button>
+
           <ol>{moves}</ol>
         </div>
       </div>
-    );
+    )
   }
 }
 

@@ -36,6 +36,11 @@ ol, ul {
   outline: none;
 }
 
+.box.winner {
+  background: #000;
+  color: #fff;
+}
+
 .kbd-navigation .box:focus {
   background: #ddd;
 }
