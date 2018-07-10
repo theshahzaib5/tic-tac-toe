@@ -46,9 +46,13 @@ ol, ul {
 }
 
 .game-board {
-  max-width: 100px; 
+  max-width: 100px;
 }
 
 .game-info {
   margin-left: 20px;
+}
+
+.bold {
+  font-weight: bold;
 }

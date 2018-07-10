@@ -67,6 +67,8 @@ class TicTacToe extends React.Component {
       }],
       xIsNext: true,
       stepNumber: 0,
+      boldIt: false,
+      clickIndex: -1,
     }
   }
 
@@ -93,6 +95,8 @@ class TicTacToe extends React.Component {
   jumpTo(step) {
     this.setState({
       stepNumber: step,
+      boldIt: true,
+      clickIndex: step,
       xIsNext: (step % 2) === 0,
     })
   }
@@ -101,6 +105,7 @@ class TicTacToe extends React.Component {
     const history = this.state.history
     const current = history[this.state.stepNumber]
     const winner = WinnerSelection(current.boxes)
+    let self = this
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -109,7 +114,7 @@ class TicTacToe extends React.Component {
 
       return (
         <li key={move}>
-          <button onClick = {() => this.jumpTo(move)}>{desc}</button>
+          <button className={(self.state.boldIt && move == self.state.clickIndex) ? 'bold' : ''} onClick = {() => this.jumpTo(move)}>{desc} </button>
         </li>
       )
     })
