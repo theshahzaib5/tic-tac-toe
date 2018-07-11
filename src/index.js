@@ -139,9 +139,6 @@ class TicTacToe extends React.Component {
 
         <div className="game-info">
           <div>{status}</div>
-
-          <button type="button">Sort it</button>
-
           <ol>{moves}</ol>
         </div>
       </div>
